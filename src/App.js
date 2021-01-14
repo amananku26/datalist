@@ -10,27 +10,31 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 export default function DataList() {
   const defaultNames = [];
+
   const { control, handleSubmit } = useForm({
     defaultValues: { names: defaultNames },
   });
+
   const [datalist, setDatalist] = useState([]);
   const [value, setValue] = React.useState("tags");
+  const [checkedValues, setCheckedValues] = useState(defaultNames);
+
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
   // ------------axios data fetch
   useEffect(() => {
     axios
       .get("https://www.json-generator.com/api/json/get/cqVmFQHuUO")
       .then((res) => setDatalist(res.data));
   }, []);
-  const [checkedValues, setCheckedValues] = useState(defaultNames);
+ 
   function handleSelect(checkedName) {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter((name) => name !== checkedName)
       : [...(checkedValues ?? []), checkedName];
     setCheckedValues(newNames);
-
     return newNames;
   }
 
