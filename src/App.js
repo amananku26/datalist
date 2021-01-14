@@ -25,7 +25,6 @@ export default function DataList() {
       .then((res) => setDatalist(res.data));
   }, []);
   const [checkedValues, setCheckedValues] = useState(defaultNames);
-  console.log(value);
   function handleSelect(checkedName) {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter((name) => name !== checkedName)
