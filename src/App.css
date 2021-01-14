@@ -1,0 +1,26 @@
+
+.App{
+  display: flex;
+}
+.DataListChild{
+  box-shadow: 10px 10px 8px 10px #e6e6e6;
+  padding: 30px;
+  display: flex;
+}
+.tags{
+  text-align: left;
+  align-items: center;
+}
+.tagsChild{
+  margin: 15px;
+}
+.submitBtn{
+  margin: 35px;
+  color: aliceblue;
+  font-weight: 800;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 22px;
+  border: none;
+  background-color: coral;
+  padding: 25px;
+}
