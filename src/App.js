@@ -7,6 +7,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import Tags from "./Tags";
 
 export default function DataList() {
   const defaultNames = [];
@@ -37,6 +38,16 @@ export default function DataList() {
     setCheckedValues(newNames);
     return newNames;
   }
+
+  var Totaltags  = []
+
+  useEffect(() => {
+   datalist.map((item)=>{
+     Totaltags = [...item.tags]
+     console.log(Totaltags)
+   })
+  }, [])
+  
 
   return (
     <>
@@ -131,6 +142,7 @@ export default function DataList() {
         </form>
       )}
       {/* tags */}
+      {value == "tags" && datalist.map((item)=> <Tags data={item.tags}/> )}
       {value == "tags" && (
         <form onSubmit={handleSubmit((data) => console.log(data))}>
           <button
