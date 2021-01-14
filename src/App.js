@@ -42,13 +42,45 @@ export default function DataList() {
 
   var Totaltags  = []
 
-  useEffect(() => {
-   datalist.map((item)=>{
-     Totaltags = [...item.tags]
-     console.log(Totaltags)
-   })
-  }, [])
-  
+  // useEffect(() => {
+  //  datalist.map((item)=>{
+  //    Totaltags = [...item.tags]
+  //    console.log(Totaltags)
+  //  })
+  // }, [])
+
+  const filteredArrTags = datalist.reduce((acc, current) => {
+    const x = acc.find(item => item.age === current.age);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
+
+  const filteredArrAge = datalist.reduce((acc, current) => {
+    const x = acc.find(item => item.age === current.age);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
+
+  const filteredArrEyeColor = datalist.reduce((acc, current) => {
+    var countTag = 0,hello = 0
+    const x = acc.find(item => item.eyeColor === current.eyeColor);
+
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      hello++
+      return acc;
+    }
+   
+  }, []);
+
+  // console.log(filteredArrAge)
 
   return (
     <>
@@ -83,7 +115,7 @@ export default function DataList() {
           >
             Submit
           </button>
-          {datalist.map((name) => (
+          {filteredArrAge.map((name) => (
             <FormControlLabel
               control={
                 <Controller
@@ -118,7 +150,7 @@ export default function DataList() {
           >
             Submit
           </button>
-          {datalist.map((name) => (
+          {filteredArrEyeColor.map((name) => (
             <FormControlLabel
               control={
                 <Controller
