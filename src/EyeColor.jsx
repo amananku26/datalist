@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Tags({data}) {
-  // console.log(data)
+export default function EyeColor(props) {
+  console.log(props)
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
@@ -37,7 +37,7 @@ export default function Tags({data}) {
 
   return (
     <List className={classes.root}>
-      {data.map((value) => {
+      {[1,2,3,4].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
 
         return (

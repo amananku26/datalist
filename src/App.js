@@ -8,6 +8,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Tags from "./Tags";
+import EyeColor from "./EyeColor"
 
 export default function DataList() {
   const defaultNames = [];
@@ -102,9 +103,9 @@ export default function DataList() {
               label={name.age}
             />
           ))}
-
         </form>
       )}
+      {/* {value == 'eyeColor' && datalist.map((item)=> <EyeColor data={item.age}/>)} */}
       {value == "eyeColor" && (
         <form onSubmit={handleSubmit((data) => console.log(data))}>
           <button
@@ -142,7 +143,7 @@ export default function DataList() {
         </form>
       )}
       {/* tags */}
-      {value == "tags" && datalist.map((item)=> <Tags data={item.tags}/> )}
+      {/* {value == "tags" && datalist.map((item)=> <Tags data={item.tags}/> )} */}
       {value == "tags" && (
         <form onSubmit={handleSubmit((data) => console.log(data))}>
           <button
