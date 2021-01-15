@@ -8,13 +8,13 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Tags from "./Tags";
-import EyeColor from "./EyeColor"
+import EyeColor from "./EyeColor";
 
 export default function DataList() {
   const defaultNames = [];
 
   const { control, handleSubmit } = useForm({
-    defaultValues: { names: defaultNames },
+    defaultValues: { names: defaultNames }
   });
 
   const [datalist, setDatalist] = useState([]);
@@ -31,7 +31,7 @@ export default function DataList() {
       .get("https://www.json-generator.com/api/json/get/cqVmFQHuUO")
       .then((res) => setDatalist(res.data));
   }, []);
- 
+
   function handleSelect(checkedName) {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter((name) => name !== checkedName)
@@ -40,44 +40,41 @@ export default function DataList() {
     return newNames;
   }
 
-  var Totaltags  = []
-
-  // useEffect(() => {
-  //  datalist.map((item)=>{
-  //    Totaltags = [...item.tags]
-  //    console.log(Totaltags)
-  //  })
-  // }, [])
-
   const filteredArrTags = datalist.reduce((acc, current) => {
-    const x = acc.find(item => item.age === current.age);
+    const x = acc.find((item) => item.age === current.age);
     if (!x) {
       return acc.concat([current]);
     } else {
       return acc;
     }
   }, []);
+
+  const AgeArray = datalist.map((item) => item.age);
 
   const filteredArrAge = datalist.reduce((acc, current) => {
-    const x = acc.find(item => item.age === current.age);
+    const x = acc.find((item) => item.age === current.age);
     if (!x) {
       return acc.concat([current]);
     } else {
       return acc;
     }
   }, []);
-
+  const tagArray = datalist.map((item) => item.tags);
+  // var newArr = [...tagArray];
+  var newArr = [].concat.apply([], tagArray);
+  // console.log(newArr);
+  const colorArray = datalist.map((item) => item.eyeColor);
+  const blue = colorArray.filter((item) => item === "blue");
+  const brown = colorArray.filter((item) => item === "brown");
+  const green = colorArray.filter((item) => item === "green");
+  // console.log(blue);
   const filteredArrEyeColor = datalist.reduce((acc, current) => {
-    var countTag = 0,hello = 0
-    const x = acc.find(item => item.eyeColor === current.eyeColor);
-
+    const x = acc.find((item) => item.eyeColor === current.eyeColor);
     if (!x) {
       return acc.concat([current]);
     } else {
-      hello++
       return acc;
     }
-   
   }, []);
 
   // console.log(filteredArrAge)
@@ -104,17 +101,10 @@ export default function DataList() {
       </FormControl>
       {/* =--------------age conditonal rendering */}
       {value == "age" && (
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
-          <button
-            style={{
-              backgroundColor: "orange",
-              border: "none",
-              padding: "25px",
-              margin: "15px",
-            }}
-          >
-            Submit
-          </button>
+        <form
+          style={{ display: "flex", flexDirection: "column" }}
+          onChange={handleSubmit((data) => console.log(data))}
+        >
           {filteredArrAge.map((name) => (
             <FormControlLabel
               control={
@@ -139,80 +129,48 @@ export default function DataList() {
       )}
       {/* {value == 'eyeColor' && datalist.map((item)=> <EyeColor data={item.age}/>)} */}
       {value == "eyeColor" && (
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
-          <button
-            style={{
-              backgroundColor: "orange",
-              border: "none",
-              padding: "25px",
-              margin: "15px",
-            }}
-          >
-            Submit
-          </button>
+        <form
+          style={{ display: "flex", flexDirection: "column" }}
+          onChange={handleSubmit((data) => console.log(data))}
+        >
           {filteredArrEyeColor.map((name) => (
-            <FormControlLabel
-              control={
-                <Controller
-                  name="names"
-                  render={({ onChange: onCheckChange }) => {
-                    return (
-                      <Checkbox
-                        checked={checkedValues.includes(name.eyeColor)}
-                        onChange={() =>
-                          onCheckChange(handleSelect(name.eyeColor))
-                        }
-                      />
-                    );
-                  }}
-                  control={control}
-                />
-              }
-              key={name.index + 1}
-              label={name.eyeColor}
-            />
+            <div style={{ display: "flex" }}>
+              <FormControlLabel
+                control={
+                  <Controller
+                    name="names"
+                    render={({ onChange: onCheckChange }) => {
+                      return (
+                        <Checkbox
+                          checked={checkedValues.includes(name.eyeColor)}
+                          onChange={() =>
+                            onCheckChange(handleSelect(name.eyeColor))
+                          }
+                        />
+                      );
+                    }}
+                    control={control}
+                  />
+                }
+                key={name.index + 1}
+                label={name.eyeColor}
+              />
+              {name.eyeColor == "blue" && <h5>{blue.length}</h5>}
+              {name.eyeColor == "brown" && <h5>{brown.length}</h5>}
+              {name.eyeColor == "green" && <h5>{green.length}</h5>}
+            </div>
           ))}
         </form>
       )}
       {/* tags */}
       {/* {value == "tags" && datalist.map((item)=> <Tags data={item.tags}/> )} */}
+      {/* {value == "tags" &&  {datalist.map((name) => <Tags/>)}} */}
       {value == "tags" && (
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
-          <button
-            style={{
-              backgroundColor: "orange",
-              border: "none",
-              padding: "25px",
-              margin: "15px",
-            }}
-          >
-            Submit
-          </button>
-          {datalist.map((name) =>
-            name.tags.map((item, index) => {
-              return (
-                <FormControlLabel
-                  control={
-                    <Controller
-                      name="names"
-                      render={({ onChange: onCheckChange }) => {
-                        return (
-                          <Checkbox
-                            checked={checkedValues.includes(item)}
-                            onChange={() => onCheckChange(handleSelect(item))}
-                          />
-                        );
-                      }}
-                      control={control}
-                    />
-                  }
-                  key={index + 1}
-                  label={item}
-                />
-              );
-            })
-          )}
-        </form>
+        <>
+          {datalist.map((item) => (
+            <Tags data={newArr} />
+          ))}
+        </>
       )}
     </>
   );
